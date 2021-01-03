@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Node.JS File Upload</title>
+  </head>
+  <body>
+    <form action="http://localhost:5000/prilog/upload"  enctype="multipart/form-data" method="POST">
+      Select materijalId: <input type="number" name="id"> <br>
+      Gde dodati: <input type="radio" name="p_o" value = "pitanje" checked> pitanje
+                  <input type="radio" name="p_o" value = "odgovor"> odgovor<br>
+      Select images: <input type="file" name="filess"  accept="image/*" multiple> <br>
+      <input type="submit" value="FORM UPLOAD" />
+
+    </form>
+      <input type="button" value="FETCH UPLOAD" id="fetch">
+      
+      <script> 
+        const dugme = document.getElementById("fetch")
+        
+        dugme.onclick = (e) => {
+          console.log(e)
+          const number = document.querySelector("input[type=number]").value
+          const gdeDodati = document.querySelector("input[type=radio]:checked").value
+          const slike = document.querySelector("input[type=file]").files
+          
+          let formData  = new FormData();
+
+          formData.append("id", number)
+          formData.append("p_o", gdeDodati)
+
+          //mora slika po slika da se dodaje u "files" (tako je podeseno u multer), a ne moze kao ceo niz da se prosledi
+          for(let i = 0; i < slike.length; i++) {
+            formData.append("files", slike[i])
+          }
+
+          fetch('http://localhost:5000/prilog/upload', {
+                body: formData,
+                method: "post",
+            })
+            .then(response => response.json())
+            .then(res => document.body.innerHTML = res)
+            .catch(err => document.body.innerHTML = err)
+          
+        }
+     
+      </script>
+
+  </body>
+</html>

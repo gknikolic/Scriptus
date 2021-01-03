@@ -1,0 +1,70 @@
+import React, { Component } from "react";
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+<<<<<<< HEAD
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+    color: {
+        color: "white",
+        "&:hover": {
+            background: "#133e86",
+        },
+        flexGrow: 1,
+    },
+
+    buttonContainer: {
+        display: "flex",
+    }
+};
+=======
+>>>>>>> b6c32e599b26d323d69b7a46de938b322e21c583
+
+export class UploadButton extends Component {
+    constructor(props)
+    {
+        super(props)
+        this.inputRef = React.createRef();
+    }
+
+    uploadFile = (e) => {
+        if(e.target.files[0]!=null)
+        {
+            this.props.upload(e.target.files[0])
+        }
+    }
+
+    fileBrowser = () => {
+        this.inputRef.current.click();
+    }
+
+    render() {
+<<<<<<< HEAD
+        const { classes } = this.props;
+
+        return (
+            <div className={classes.buttonContainer}>
+            <Button className={classes.color} onClick={this.fileBrowser}>
+                <CloudUploadIcon/>
+            </Button>
+            <input type="file" ref={this.inputRef} style={{display: "none"}} onChange={this.uploadFile} accept=".pdf, .doc*"/>
+            </div>
+        );
+    }
+}
+export default withStyles(styles)(UploadButton)
+=======
+
+    return (
+        <div>
+        <Button variant="contained" onClick={this.fileBrowser}>
+            <CloudUploadIcon/>
+        </Button>
+        <input type="file" ref={this.inputRef} style={{display: "none"}} onChange={this.uploadFile} accept=".pdf, .doc*"/>
+        </div>
+    );
+    }
+}
+export default UploadButton
+>>>>>>> b6c32e599b26d323d69b7a46de938b322e21c583
+
